@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lobby</title>
+</head>
+<body>
+    <div id="side_color"></div>
+    <div id="chat_bar" class="side_chat body1">
+        <h1 id="chat_title_h1">chat</h1>
+        <ul id="messages"></ul>
+        <form class="form1" action="">
+          <input class="form_input" id="m" autocomplete="off" /><button id="chat_button"></button>
+        </form>
+        <!-- <script src="/socket.io/socket.io.js"></script> -->
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script>
+          $(function () {
+            // var socket = io();
+            $('form').submit(function(){
+              socket.emit('chat message', $('#m').val());
+              $('#m').val('');
+              return false;
+            });
+            socket.on('chat message', function(msg){
+              $('#messages').append($('<li>').text(msg));
+           
+                $("#chat_bar").animate({ scrollTop: $('#chat_bar')[0].scrollHeight}, 500);
+               
+            });
+          });
+        </script>
+      </div>
+    <h1 id="headline">welcome to the Lobby </h1>
+    <div id="container"> 
+        <div id="players_info">
+            <h2 id="players_title">players:</h2>
+            <!-- <ul id="players">
+                <li id="1"></li>
+                <li id="2"></li>
+                <li id="3"></li>
+                <li id="4"></li>
+            </ul> -->
+            <ul id="players2">
+              
+            </ul>
+        </div>
+        <div id="request" class="display_none speech-bubble">
+          <h3 id="want_to_play_name"></h3>
+          <h3>wants to play with you</h3>
+        </div>
+            <div id="answer_div" class="display_none">
+                <button id="yes_button">Yes</button>
+                <button id="no_button">No</button>
+            </div>
+            <div id="got_positive_answer" class="display_none speech-bubble">
+              <h3>you have got a positive response</h3>
+                <button id="Go">Go</button>
+                <h3 style="text-align: center;">Enjoy</h3>
+            </div>
+            <button style="display: none;" id="b">b</button>
+           
+    </div>
+    
+      <button style="display: none;" id="test">test</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./client.js"></script>
+</body>
+</html>
